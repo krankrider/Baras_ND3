@@ -1,0 +1,309 @@
+/* ===========================
+   responsive ir grid
+   =========================== */
+
+/* --- mobile hamburgeris --- */
+.menu-toggle {
+    display: none; /* desktop */
+    background: none;
+    border: none;
+    color: var(--color-white);
+    font-size: 1.8rem;
+    cursor: pointer;
+    padding: var(--spacing-sm);
+}
+/* --- galerija --- */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 stulpeliai desktop */
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-md);
+}
+
+.gallery-card {
+    background-color: var(--color-bg-card);
+    border: 1px solid var(--color-accent-dark);
+    border-radius: var(--radius);
+    overflow: hidden;
+    transition: var(--transition);
+}
+
+/* Pakėlimo efektas užvedus pelę */
+.gallery-card:hover {
+    transform: translateY(-5px); 
+    box-shadow: 0 0 15px var(--color-accent);
+}
+
+.gallery-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+}
+
+/* Galerijos kortelės tekstas */
+.gallery-card .card-body {
+    padding: 15px;
+}
+
+.gallery-card .card-body h3 {
+    margin: 0 0 5px 0;
+    font-size: 1.1rem;
+}
+
+.gallery-card .card-body p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--color-text);
+}
+
+/* --- Apie mus puslapis: Flex išdėstymas --- */
+.about-section {
+    display: flex;
+    gap: var(--spacing-lg);
+    align-items: flex-start;
+    margin-bottom: var(--spacing-lg);
+}
+
+.about-text {
+    flex: 1; /* Užima likusią vietą */
+}
+
+.about-image {
+    flex: 0 0 300px; /* Fiksuotas plotis */
+    width: 300px;
+    max-height: 320px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: var(--radius);
+    border: 2px solid var(--color-accent-dark);
+}
+
+/* Komandos narių Grid */
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-md);
+}
+
+/* Komandos narys */
+.team-member {
+    background-color: var(--color-bg-card);
+    padding: var(--spacing-md);
+    border-radius: var(--radius);
+    text-align: center;
+    border: 1px solid var(--color-accent-dark);
+}
+
+.team-member .avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%; /* Apvalus avataras */
+    background-color: var(--color-accent-dark);
+    margin: 0 auto var(--spacing-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    color: var(--color-white);
+}
+
+/* --- Mygtukai su įvykiais --- */
+.btn {
+    background-color: transparent;
+    color: var(--color-accent);
+    border: 2px solid var(--color-accent);
+    padding: var(--spacing-sm) var(--spacing-md);
+    cursor: pointer;
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    transition: var(--transition);
+    border-radius: var(--radius-sm);
+}
+
+.btn:hover {
+    background-color: var(--color-accent);
+    color: var(--color-bg);
+    box-shadow: 0 0 10px var(--color-accent);
+}
+
+.btn-secondary {
+    border-color: var(--color-text);
+    color: var(--color-text);
+}
+
+.btn-secondary:hover {
+    background-color: var(--color-text);
+    color: var(--color-bg);
+    box-shadow: 0 0 10px var(--color-text);
+}
+
+/* --- Pranešimo dėžutė (JS alert) --- */
+.alert-box {
+    padding: 15px;
+    border-radius: var(--radius-sm);
+    margin-top: var(--spacing-sm);
+    display: none; /* Paslėpta pagal nutylėjimą */
+    font-weight: bold;
+}
+
+.alert-box.success {
+    background-color: rgba(0, 200, 0, 0.15);
+    border: 1px solid #00c800;
+    color: #00c800;
+}
+
+.alert-box.error {
+    background-color: rgba(209, 17, 17, 0.15);
+    border: 1px solid var(--color-accent);
+    color: var(--color-accent);
+}
+
+/* --- Filtravimo mygtukai --- */
+.filter-buttons {
+    display: flex;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-md);
+    flex-wrap: wrap;
+}
+
+.filter-buttons .btn.active {
+    background-color: var(--color-accent);
+    color: var(--color-bg);
+}
+
+/* --- Darbo valandų lentelė --- */
+.hours-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: var(--color-bg-card);
+    margin-top: var(--spacing-sm);
+}
+
+.hours-table th,
+.hours-table td {
+    border: 1px solid var(--color-accent-dark);
+    padding: 12px;
+    text-align: left;
+}
+
+.hours-table th {
+    background-color: var(--color-bg);
+    color: var(--color-accent);
+}
+
+/* --- Footer --- */
+footer {
+    background-color: var(--color-bg-card);
+    border-top: 2px solid var(--color-accent-dark);
+    padding: var(--spacing-md);
+    text-align: center;
+    margin-top: var(--spacing-lg);
+    color: var(--color-text);
+    font-size: 0.9rem;
+}
+
+/* RESPONSIVE DIZAINAS
+     - Plansete: <768px
+     - Telefonas: <480px 
+*/
+
+/* --- plansete - galerijai ir team 2 stulpeliai --- */
+@media (max-width: 768px) {
+    .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .team-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .about-section {
+        flex-direction: column;
+    }
+
+    .about-image {
+        flex: none;
+        width: 100%;
+        max-width: 400px;
+        max-height: 280px;
+    }
+
+    /* hamburgeris rodomas */
+    .menu-toggle {
+        display: block;
+    }
+
+    /* navbar tampa vertikali ir slepiama */
+    .navbar {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+    }
+
+    .navbar.open {
+        max-height: 300px;
+    }
+
+    /* Nav wrapper flex */
+    nav {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+/* --- telefonas - galerijai ir team po 1 stulpeli, mazesni tarpai ir sriftai --- */
+@media (max-width: 480px) {
+    .gallery-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .team-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .container {
+        padding: var(--spacing-sm);
+    }
+  
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    h2 {
+        font-size: 1.2rem;
+    }
+
+    .filter-buttons {
+        justify-content: center;
+    }
+}
+
+/* sviesus rezimas */
+.light-theme {
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+.light-theme header {
+    background-color: #ddd;
+}
+
+.light-theme .gallery-card,
+.light-theme .team-member,
+.light-theme .reservation-form,
+.light-theme .menu-table,
+.light-theme .hours-table {
+    background-color: #fff;
+    border-color: #ccc;
+}
+
+.light-theme footer {
+    background-color: #ddd;
+    color: #333;
+}

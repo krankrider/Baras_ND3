@@ -1,0 +1,29 @@
+/* ===========================
+    visuose html per var()
+   =========================== */
+
+:root {
+    --color-bg: #0b0c10;
+    --color-bg-card: #1f2833;
+    --color-text: #c5c6c7;
+    --color-accent: #d11111;
+    --color-accent-dark: #9e1b1b;
+    --color-white: #fff;
+
+    --font-heading: 'Rajdhani', sans-serif;
+    --font-body: 'Roboto', sans-serif;
+
+    /* tarpai */
+    --spacing-sm: 10px;
+    --spacing-md: 20px;
+    --spacing-lg: 40px;
+
+    /* border */
+    --radius: 8px;
+    --radius-sm: 4px;
+
+    --transition: all 0.3s ease;
+
+    /* plotis */
+    --container-max: 900px;
+}
