@@ -20,8 +20,8 @@ document.addEventListener('DOMContentLoaded', function () {
     // --- Rezervacijos forma (kontaktai.html) - siunčia POST į ND3 backend ---
     const form = document.querySelector('.reservation-form');
     if (form) {
-        // API endpoint (Express serveris klausosi 5050 porto)
-        const API_URL = 'http://localhost:5050/api/reservations';
+        // API endpoint (Render backend)
+        const API_URL = 'https://baras-nd3.onrender.com/api/reservations';
 
         form.addEventListener('submit', async function (e) {
             e.preventDefault();
