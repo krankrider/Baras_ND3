@@ -1,171 +1,117 @@
 # ND3 — Kokteilių Maišykla (MERN)
 
-Trečiojo namų darbo projektas. Išplečia ND2 statinį tinklapį pilna MERN aplikacija:
-**MongoDB + Express + React + Node.js** su CRUD operacijomis staliuko rezervacijoms.
+**Autorius:** Rokas Bubinas
+**Modulis:** Interneto technologijos
+**Tema:** Web aplikacija (MongoDB + Express + React + Node.js) su CRUD operacijomis.
 
-## Peržiūra
+Projektas išplečia ND2 statinį tinklapį pilnaverčiu MERN sprendimu: statiniame puslapyje galima sukurti staliuko rezervaciją, o atskira React administratoriaus panelė leidžia atlikti visas CRUD operacijas su rezervacijomis.
 
-| Dalis | URL |
-|-------|-----|
-| Statinis tinklapis (ND2) | `https://<jūsų-vercel-projektas>.vercel.app` |
-| React admin panelė (CRUD) | `https://<jūsų-vercel-projektas>.vercel.app` |
-| Backend API | `https://<jūsų-render-servisas>.onrender.com/api/health` |
+---
 
-> Pakeiskite nuorodas į tikras po pirmojo deploy.
+## 🌐 Gyvos nuorodos (vertinimui)
 
-## Aplankų struktūra
+| Dalis | Technologija | Nuoroda |
+|-------|--------------|---------|
+| Statinis tinklapis (ND2) | HTML/CSS/JS (Vercel) | <https://baras-nd-3-qz9t.vercel.app/> |
+| Administratoriaus panelė (CRUD) | React + Vite (Vercel) | <https://baras-nd-3.vercel.app/> |
+| Backend API | Node.js + Express (Render) | <https://baras-nd3.onrender.com/api/health> |
+| Duomenų bazė | MongoDB Atlas (cloud) | privati |
+
+> Visi trys deploymentai yra aktyvūs ir tarpusavyje sujungti — testavimui nereikia nieko diegti lokaliai. Statiniame puslapyje (`kontaktai.html`) galima sukurti rezervaciją, ji iškart atsiranda administratoriaus panelėje.
+
+---
+
+## 📁 Aplankų struktūra
 
 ```
 ND3_RokasB/
-├── site/        # ND2 statinis tinklapis (HTML/CSS/JS)
-├── server/      # Express + Mongoose backend
-│   ├── server.js
-│   ├── models/Reservation.js
-│   └── routes/reservations.js
-├── client/      # React + Vite admin panelė (CRUD)
-│   └── src/{App.jsx, api.js, components/}
-├── readme.md
-└── isivertinimas.md
+├── site/                 # ND2 statinis tinklapis (HTML/CSS/JS)
+│   ├── index.html, meniu.html, galerija.html, kontaktai.html, apie.html
+│   ├── css/  js/  img/
+│
+├── server/               # Backend (Express + Mongoose)
+│   ├── server.js                  # Express + Mongo prisijungimas
+│   ├── models/Reservation.js      # Mongoose schema
+│   ├── routes/reservations.js     # CRUD maršrutai
+│   └── test-routes.js             # maršrutų testas (be DB)
+│
+├── client/               # Frontend (React + Vite)
+│   └── src/
+│       ├── App.jsx                # Pagrindinis komponentas
+│       ├── api.js                 # fetch API klientas
+│       └── components/
+│           ├── ReservationForm.jsx   # Create + Update forma
+│           └── ReservationList.jsx   # Sąrašas + Delete
+│
+├── isivertinimas.md      # Įsivertinimo lentelė
+└── readme.md
 ```
 
 ---
 
-## Deployment (GitHub → Render + Vercel)
+## ✅ Įgyvendintos užduoties dalys
 
-Visi trys žingsniai atliekami vieną kartą. Po to pakeitimai pasklinda automatiškai per `git push`.
+**1. MongoDB duomenų bazė** — Atlas klasteryje sukurta `kokteiliu_maisykla` DB, `reservations` kolekcija. Schema apibrėžta per Mongoose (`server/models/Reservation.js`).
 
-### 1. MongoDB Atlas (duomenų bazė)
+**2. Backend (Node.js + Express)** — `server/server.js` jungiasi prie MongoDB per `mongoose.connect()`, paleidžia Express serverį, registruoja `/api/reservations` maršrutus.
 
-1. Sukurkite nemokamą paskyrą: [mongodb.com/cloud/atlas](https://mongodb.com/cloud/atlas)
-2. Sukurkite **Free (M0)** klasterį bet kuriame regione.
-3. **Database Access** → pridėkite vartotoją su slaptažodžiu.
-4. **Network Access** → pridėkite `0.0.0.0/0` (leidžia prisijungti iš Render).
-5. **Connect → Drivers** → nukopijuokite connection string:
-   ```
-   mongodb+srv://<user>:<password>@cluster0.xxxxx.mongodb.net/kokteiliu_maisykla
-   ```
+**3. CRUD operacijos** — visos keturios atskirose funkcijose, faile `server/routes/reservations.js`.
 
-### 2. GitHub
+**4. React frontend** — `client/src/App.jsx` valdo būseną, naudoja `fetch` (`client/src/api.js`) duomenų užklausoms. Yra atskira forma (kūrimui ir redagavimui), sąrašas, ištrynimo mygtukas.
 
-```bash
-# Repo šaknyje (ND3_RokasB/)
-git init
-git add .
-git commit -m "initial commit"
-git remote add origin https://github.com/<jūsų-vartotojas>/<repo-pavadinimas>.git
-git push -u origin main
-```
-
-> Jei `node_modules` dar yra aplankuose — ištrinkite prieš push:
-> ```bash
-> rm -rf server/node_modules client/node_modules
-> ```
-
-### 3. Render (backend API)
-
-1. Eikite į [render.com](https://render.com) → **New → Web Service**.
-2. Prijunkite GitHub repo.
-3. Nustatymai:
-   - **Root Directory:** `server`
-   - **Build Command:** `npm install`
-   - **Start Command:** `npm start`
-4. **Environment Variables** → pridėkite:
-   | Kintamasis | Reikšmė |
-   |------------|---------|
-   | `MONGO_URI` | jūsų Atlas connection string |
-   | `PORT` | `5050` |
-5. Spauskite **Deploy**. Kai bus žalia — nukopijuokite Render URL (pvz. `https://kokteiliu-api.onrender.com`).
-
-### 4. Vercel (React klientas)
-
-1. Eikite į [vercel.com](https://vercel.com) → **New Project** → importuokite GitHub repo.
-2. Nustatymai:
-   - **Root Directory:** `client`
-   - **Framework Preset:** Vite (aptinkama automatiškai)
-3. **Environment Variables** → pridėkite:
-   | Kintamasis | Reikšmė |
-   |------------|---------|
-   | `VITE_API_URL` | Render URL iš 3 žingsnio (pvz. `https://kokteiliu-api.onrender.com`) |
-4. Spauskite **Deploy**.
-
-### 5. Atnaujinkite URL statiniame tinklapyje
-
-`site/js/script.js` faile pakeiskite:
-```js
-// Buvo:
-const API_URL = 'http://localhost:5050/api/reservations';
-
-// Pakeiskite į:
-const API_URL = 'https://<jūsų-render-servisas>.onrender.com/api/reservations';
-```
-
-Taip pat `site/kontaktai.html` atnaujinkite admin panelės nuorodą į Vercel URL.
-
-Po pakeitimo:
-```bash
-git add .
-git commit -m "update production URLs"
-git push
-```
+Detaliau — žr. [`isivertinimas.md`](./isivertinimas.md).
 
 ---
 
-## API maršrutai
+## 🔌 API maršrutai
 
-| Metodas  | Maršrutas                  | Aprašymas                    |
-|----------|----------------------------|------------------------------|
-| `POST`   | `/api/reservations`        | Sukurti rezervaciją (Create) |
-| `GET`    | `/api/reservations`        | Gauti visas (Read)           |
-| `GET`    | `/api/reservations/:id`    | Gauti vieną (Read)           |
-| `PUT`    | `/api/reservations/:id`    | Atnaujinti (Update)          |
-| `DELETE` | `/api/reservations/:id`    | Ištrinti (Delete)            |
+Base URL: `https://baras-nd3.onrender.com`
 
-## Duomenų modelis
-
-`Reservation` kolekcija (MongoDB):
-
-| Laukas    | Tipas   | Privalomas | Pastabos           |
-|-----------|---------|------------|--------------------|
-| vardas    | String  | taip       | Apkarpomas (trim)  |
-| elPastas  | String  | taip       | Mažosios raidės    |
-| data      | Date    | taip       | Rezervacijos diena |
-| zmoniuSk  | Number  | taip       | 1–20               |
-| createdAt | Date    | auto       | timestamps         |
-| updatedAt | Date    | auto       | timestamps         |
+| Metodas  | Maršrutas                  | Operacija | Aprašymas                  |
+|----------|----------------------------|-----------|----------------------------|
+| `POST`   | `/api/reservations`        | Create    | Sukurti naują rezervaciją  |
+| `GET`    | `/api/reservations`        | Read all  | Gauti visas rezervacijas   |
+| `GET`    | `/api/reservations/:id`    | Read one  | Gauti vieną pagal ID       |
+| `PUT`    | `/api/reservations/:id`    | Update    | Atnaujinti rezervaciją     |
+| `DELETE` | `/api/reservations/:id`    | Delete    | Ištrinti rezervaciją       |
+| `GET`    | `/api/health`              | —         | Serverio būsenos patikrinimas |
 
 ---
 
-## Lokalus paleidimas
+## 🗄️ Duomenų modelis (`Reservation`)
 
-Jei norite paleisti lokaliai:
-
-### Reikalavimai
-- Node.js, MongoDB (arba Atlas connection string)
-
-### Backend
-```bash
-cd server
-npm install
-cp .env.example .env   # įrašykite MONGO_URI
-npm run dev
-```
-
-### Frontend
-```bash
-cd client
-npm install
-npm run dev
-```
-
-Admin panelė: `http://localhost:5173` | API: `http://localhost:5050`
-
-### Maršrutų testas (be MongoDB)
-```bash
-cd server
-npm test
-```
+| Laukas    | Tipas   | Privalomas | Validacija            |
+|-----------|---------|------------|-----------------------|
+| vardas    | String  | taip       | trim                  |
+| elPastas  | String  | taip       | trim, lowercase       |
+| data      | Date    | taip       | —                     |
+| zmoniuSk  | Number  | taip       | 1–20                  |
+| createdAt | Date    | auto       | Mongoose timestamps   |
+| updatedAt | Date    | auto       | Mongoose timestamps   |
 
 ---
 
-## Autorius
-Rokas Bubinas — 2026
+## 🧪 Testavimo eiga (graderiui)
+
+1. Atidaryti statinį puslapį <https://baras-nd-3-qz9t.vercel.app/> → eiti į **Kontaktai** → užpildyti rezervacijos formą → **Rezervuoti**.
+2. Atidaryti administratoriaus panelę <https://baras-nd-3.vercel.app/> → naujas įrašas turi būti sąraše.
+3. Panelėje galima:
+   - sukurti rezervaciją per formą (Create);
+   - peržiūrėti visas (Read);
+   - paspausti ✏️ **Redaguoti** ir išsaugoti pakeitimus (Update);
+   - paspausti 🗑️ **Ištrinti** (Delete).
+
+> ⚠️ Render nemokamas planas "užmiega" po neaktyvumo. Pirmasis API užklausimas gali užtrukti 30–60 s — tai normalu.
+
+---
+
+## 🧱 Technologijos
+
+- **MongoDB Atlas** — dokumentinė DB cloud'e
+- **Mongoose** — schemos ir validacija
+- **Express** — REST API
+- **Node.js** — runtime
+- **React 18 + Vite** — frontend
+- **Fetch API** — klientas → serveris
+
+Deployment: Render (backend), Vercel (du atskiri projektai — statinis ir React).
