@@ -4,20 +4,20 @@
 **Modulis:** Interneto technologijos
 **Tema:** Web aplikacija su CRUD operacijomis.
 
-Išplečiamas ND2 statinis tinklapis su MERN: statiniame puslapyje galima sukurti staliuko rezervaciją. Atskira React administratoriaus panelė leidžia atlikti CRUD operacijas.
+Išplečiamas statinis tinklapis iš ND2 su MERN. Atskira React administratoriaus panelė skirta atlikti CRUD operacijas.
 
 ---
 
 ## Nuorodos (vertinimui)
 
-| Dalis | Technologija | Nuoroda |
+| Dalis | Įgyvendinimas | Nuoroda |
 |-------|--------------|---------|
 | Statinis tinklapis (ND2) | HTML/CSS/JS (Vercel) | <https://baras-nd-3-qz9t.vercel.app/> |
 | Administratoriaus panelė (CRUD) | React + Vite (Vercel) | <https://baras-nd-3.vercel.app/> |
 | Backend API | Node.js + Express (Render) | <https://baras-nd3.onrender.com/api/health> |
 | Duomenų bazė | MongoDB Atlas (cloud) | privati |
 
-> Visi trys deploymentai aktyvūs ir sujungti. Statiniame puslapyje (`kontaktai.html`) galima sukurti rezervaciją, ji atsiranda administratoriaus panelėje.
+> Visi trys deploymentai sujungti. Statiniame puslapyje (`kontaktai.html`) galima sukurti rezervaciją, kuri atsiranda admin panelėje.
 
 ---
 
@@ -110,5 +110,5 @@ Base URL: `https://baras-nd3.onrender.com`
 - **Node.js** - runtime
 - **React 18 + Vite** - frontend
 - **Fetch API** - klientas → serveris
-
+- **Claude** - redagavimas
 Deployment: Render (backendui), Vercel (du atskiri projektai - statinis ir React).
