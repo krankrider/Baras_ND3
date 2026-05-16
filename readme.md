@@ -90,7 +90,7 @@ Base URL: `https://baras-nd3.onrender.com`
 
 ## Testavimui
 
-1. Atidaryti statinį puslapį <https://baras-nd-3-qz9t.vercel.app/> → eiti į **Kontaktai** → užpildyti rezervacijos formą → **Rezervuoti**.
+1. Atidaryti statinį puslapį <https://baras-nd-3-qz9t.vercel.app/> → eiti į **Rezervacija** → užpildyti rezervacijos formą → **Rezervuoti**.
 2. Atidaryti administratoriaus panelę <https://baras-nd-3.vercel.app/> → naujas įrašas turi būti sąraše.
 3. Panelėje galima:
    - sukurti rezervaciją per formą (Create);
